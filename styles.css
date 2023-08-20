@@ -1,0 +1,14 @@
+
+div#control {
+  display: none;
+}
+
+#control:xr-overlay {
+  display: initial;
+}
+
+.control-container {
+  z-index: 99999 !important;
+  margin-bottom: 40px !important;
+}
+

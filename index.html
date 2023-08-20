@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOM Overlay A-Frame WebXR</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="./scripts.js"></script>
+</head>
+<body>
+  <div id="control" >
+    <div class="control-container fixed-bottom my-4 mx-4 align-content-end align-items-end d-flex justify-content-between p-3 bg-secondary rounded">
+      <div class="d-flex flex-column justify-content-between gap-2">
+        <div id="scaling" class="btn-group" role="group">
+          <button id="pos-scale" type="button" class="btn btn-primary btn-lg">S+</button>
+          <button id="neg-scale" type="button" class="btn btn-primary btn-lg">S-</button>
+        </div>
+        <div id="rotation" class="btn-group" role="group">
+          <button id="pos-rotation" type="button" class="btn btn-primary btn-lg">R+</button>
+          <button id="neg-rotation" type="button" class="btn btn-primary btn-lg">R-</button>
+        </div>
+      </div>
+  
+      <div class="d-flex flex-column justify-content-between gap-2">
+        <div id="position-x" class="btn-group" role="group">
+          <button id="btn-change" type="button" class="btn btn-primary btn-lg">Change</button>
+        </div>
+        <span id="status" class="badge bg-secondary">Status WebXR</span>
+      </div>
+  
+      <div class="d-flex flex-column justify-content-between gap-2">
+        <div id="position-x" class="btn-group" role="group">
+          <button id="pos-position-x" type="button" class="btn btn-primary btn-lg">X+</button>
+          <button id="neg-position-x" type="button" class="btn btn-primary">X-</button>
+        </div>
+        <div id="position-z" class="btn-group" role="group">
+          <button id="pos-position-z" type="button" class="btn btn-primary btn-lg">Z+</button>
+          <button id="neg-position-z" type="button" class="btn btn-primary btn-lg">Z-</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a-scene 
+    status
+    background="color: #ECECEC"
+    webxr="optionalFeatures: dom-overlay, local, hit-test; overlayElement: #control" 
+    renderer="physicallyCorrectLights:true; colorManagement:true; exposure:1; toneMapping:ACESFilmic;"
+    vr-mode-ui="enterAREnabled: true" 
+    ar-hit-test="target: #objects; type: map;"
+    cursor__mouse="rayOrigin: mouse;"
+    cursor__xrselect="rayOrigin: xrselect"
+    raycaster="objects:#objects *;"
+    reflection="directionalLight:#real-light"
+  >  
+    <a-assets>      
+      <!-- https://sketchfab.com/3d-models/chair-household-props-challenge-day-3-2997671013da4cb085e900719e783324 -->
+      <a-asset-item id="chair" src="./assets/models/chair_-_household_props_challenge_-_day_3.glb"></a-asset-item>
+      <!-- https://sketchfab.com/3d-models/animated-wardobe-closet-office-low-poly-d5f70f4dac4544f1aaa08a32875e8435 -->
+      <a-asset-item id="lemari" src="./assets/models/animated_wardobe_closet_office_low_poly.glb"></a-asset-item>
+      <!-- https://sketchfab.com/3d-models/old-metal-table-low-poly-92a14c8d231b4812bc7b97d03da6ddd9 -->
+      <a-asset-item id="meja" src="./assets/models/old_metal_table_low_poly.glb"></a-asset-item>
+      <!-- https://sketchfab.com/3d-models/animated-moving-pointer-7c17aca063bb426b81351fffb8eec078 -->
+      <a-asset-item id="pointer" src="./assets/models/animated_moving_pointer.glb"></a-asset-item>
+    </a-assets>
+
+    <a-light id="real-light" type="directional" light="castShadow:true;shadowCameraAutomatic:#objects;" position="1 1 1" intensity="0.5"></a-light>
+
+    <a-entity scale="3 3 3" control-ar-button="element: .control-container"></a-entity>
+
+    <a-entity scale="3 3 3" control-ar-button="element: #pos-scale"></a-entity>
+    <a-entity scale="3 3 3" control-ar-button="element: #neg-scale"></a-entity>
+    
+    <a-entity scale="3 3 3" control-ar-button="element: #pos-rotation"></a-entity>
+    <a-entity scale="3 3 3" control-ar-button="element: #neg-rotation"></a-entity>
+
+    <a-entity scale="3 3 3" control-ar-button="element: #pos-position-x"></a-entity>
+    <a-entity scale="3 3 3" control-ar-button="element: #neg-position-x"></a-entity>
+    <a-entity scale="3 3 3" control-ar-button="element: #pos-position-z"></a-entity>
+    <a-entity scale="3 3 3" control-ar-button="element: #neg-position-z"></a-entity>
+
+
+    <a-entity scale="3 3 3" control-ar-button="element: #btn-change" control-change-object></a-entity>
+    <a-entity id="objects" position="0 -0.2 2.4">
+      <a-box scale="0.2 0.2 0.2" position="0 0 0" opacity="0.6" color="blue"></a-box>
+    </a-entity>
+    <a-camera id="cameraRig"  position="0 1.4 0" wasd-controls="acceleration:10;"></a-camera>
+  </a-scene>
+  
+  <script>
+    
+  </script>
+</body>
+</html>
